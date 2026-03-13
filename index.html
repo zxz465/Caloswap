@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaloSwap | Good Health and Well-being</title>
+  <style>
+    :root {
+      --green-dark: #1f5f3b;
+      --green: #2f7d4f;
+      --green-soft: #e9f5ec;
+      --green-pale: #f5fbf7;
+      --cream: #fff8ec;
+      --text: #223127;
+      --muted: #617065;
+      --white: #ffffff;
+      --border: #d9e7dd;
+      --shadow: 0 14px 36px rgba(31, 95, 59, 0.08);
+      --radius: 22px;
+      --max-width: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      width: min(calc(100% - 2rem), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.95rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--green-dark); color: var(--white); }
+    .btn-secondary { background: var(--green-soft); color: var(--green-dark); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+    }
+
+    .section-title {
+      margin: 0.9rem 0 0.8rem;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      line-height: 1.15;
+    }
+
+    .section-copy {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(217, 231, 221, 0.8);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 800;
+      color: var(--green-dark);
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: var(--white);
+      box-shadow: var(--shadow);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .hero {
+      padding: 4.8rem 0 3.2rem;
+      background:
+        radial-gradient(circle at top right, rgba(47, 125, 79, 0.12), transparent 34%),
+        radial-gradient(circle at left center, rgba(245, 251, 247, 1), transparent 36%),
+        linear-gradient(180deg, #ffffff 0%, #fcfffd 100%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero h1 {
+      margin: 1rem 0;
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      margin: 0 0 1.4rem;
+      font-size: 1.06rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem 1.2rem;
+      color: var(--green-dark);
+      font-weight: 600;
+      font-size: 0.96rem;
+    }
+
+    .hero-card,
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.4rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, var(--cream), #fffdf8);
+    }
+
+    .showcase {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .product-preview {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .preview-item {
+      display: grid;
+      grid-template-columns: 56px 1fr auto;
+      gap: 0.9rem;
+      align-items: center;
+      padding: 0.9rem;
+      background: var(--green-pale);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .preview-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: var(--white);
+      font-size: 1.5rem;
+    }
+
+    .preview-item strong {
+      display: block;
+      color: var(--text);
+    }
+
+    .preview-item span {
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .price-pill {
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--green-dark);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .stats-bar {
+      margin-top: 2rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      background: var(--green-dark);
+      color: var(--white);
+      padding: 1.3rem;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat {
+      padding: 0.65rem 0.8rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat strong {
+      display: block;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat span {
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.95rem;
+    }
+
+    .source-note {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    .menu-layout {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--green-pale);
+      color: var(--green-dark);
+      font-size: 0.95rem;
+    }
+
+    tbody tr:hover { background: #fbfefc; }
+
+    .regular-price {
+      color: #8a6030;
+      font-weight: 700;
+    }
+
+    .member-price {
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .membership-card {
+      background: linear-gradient(180deg, var(--green-pale), var(--cream));
+    }
+
+    .membership-price {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.35rem;
+      margin: 0.8rem 0 1rem;
+    }
+
+    .membership-price strong {
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      line-height: 1;
+      color: var(--green-dark);
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 1.4rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+    }
+
+    .tick {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--green-dark);
+      color: var(--white);
+      font-size: 0.8rem;
+      flex: 0 0 auto;
+      margin-top: 0.1rem;
+    }
+
+    .signup-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 0.85rem;
+      margin-top: 1.2rem;
+    }
+
+    .info-item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 0.85rem;
+      align-items: center;
+      padding: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--green-pale);
+    }
+
+    .info-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: var(--white);
+      font-size: 1.4rem;
+    }
+
+    form {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(47, 125, 79, 0.14);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin: 0;
+    }
+
+    .message {
+      display: none;
+      padding: 0.9rem 1rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .message.success {
+      display: block;
+      background: var(--green-soft);
+      color: var(--green-dark);
+      border: 1px solid #cde1d2;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff1ef;
+      color: #a03f33;
+      border: 1px solid #efcfc9;
+    }
+
+    footer {
+      background: #133b24;
+      color: rgba(255, 255, 255, 0.88);
+      padding: 2.5rem 0;
+      margin-top: 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 1.4rem;
+    }
+
+    .footer-title {
+      color: #ffffff;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 0.55rem;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .footer-bottom {
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.94rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .menu-layout,
+      .signup-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.14); }
+    }
+
+    @media (max-width: 700px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .stats-grid,
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+      }
+
+      .stat:last-child { border-bottom: none; }
+      .hero { padding-top: 3.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="CaloSwap home">
+        <span class="brand-icon">🥗</span>
+        <span>CaloSwap</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#menu">Menu</a>
+        <a href="#stats">Health Stats</a>
+        <a href="#membership">Membership</a>
+        <a href="#signup" class="btn btn-primary">Email Sign-up</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="tag">UN SDG 3 · Good Health and Well-being</span>
+          <h1>Healthy comfort food for students who want the same taste with fewer calories.</h1>
+          <p>
+            CaloSwap is a student startup reinventing takeaway favourites with lower-fat, lower-calorie meal replacements.
+            Think crispy-style chicken swaps, burger alternatives, and smart snack choices that still feel satisfying.
+            Our slogan is simple: <strong>Same taste, less fat, better balance.</strong>
+          </p>
+          <div class="hero-actions">
+            <a href="#membership" class="btn btn-primary">Become a Member</a>
+            <a href="#menu" class="btn btn-secondary">See the Menu</a>
+          </div>
+          <div class="hero-points">
+            <span>✓ Low-fat meal replacements</span>
+            <span>✓ Clear calories and prices</span>
+            <span>✓ Student-friendly monthly membership</span>
+          </div>
+        </div>
+
+        <div class="showcase">
+          <div class="hero-card">
+            <strong style="font-size: 1.1rem; color: var(--green-dark);">Familiar flavour, healthier swap.</strong>
+            <p style="margin: 0.45rem 0 0; color: var(--muted);">
+              Our products are designed to replace high-calorie favourites like fried chicken meals and burgers without losing the taste students love.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="product-preview">
+              <div class="preview-item">
+                <div class="preview-icon">🍔</div>
+                <div>
+                  <strong>Lean Smash Burger Swap</strong>
+                  <span>Burger-style taste · 390 kcal</span>
+                </div>
+                <div class="price-pill">£4.80</div>
+              </div>
+              <div class="preview-item">
+                <div class="preview-icon">🍗</div>
+                <div>
+                  <strong>Crispy Chick’n Swap Box</strong>
+                  <span>Fried chicken-style taste · 430 kcal</span>
+                </div>
+                <div class="price-pill">£5.10</div>
+              </div>
+              <div class="preview-item">
+                <div class="preview-icon">🌯</div>
+                <div>
+                  <strong>Protein Wrap Replacement</strong>
+                  <span>Takeaway wrap feel · 320 kcal</span>
+                </div>
+                <div class="price-pill">£4.20</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container stats-bar" id="stats">
+        <div class="stats-grid" aria-label="Obesity rate statistics">
+          <div class="stat">
+            <strong>1 in 8</strong>
+            <span>people worldwide were living with obesity in 2022</span>
+          </div>
+          <div class="stat">
+            <strong>16%</strong>
+            <span>of adults worldwide were living with obesity in 2022</span>
+          </div>
+          <div class="stat">
+            <strong>43%</strong>
+            <span>of adults worldwide were overweight in 2022</span>
+          </div>
+          <div class="stat">
+            <strong>20%</strong>
+            <span>of children and adolescents aged 5–19 were overweight in 2022</span>
+          </div>
+        </div>
+        <div class="source-note">Global obesity figures displayed as a health awareness summary for the CaloSwap landing page.</div>
+      </div>
+    </section>
+
+    <section class="section" id="menu">
+      <div class="container menu-layout">
+        <div>
+          <span class="tag">Menu and calorie table</span>
+          <h2 class="section-title">Healthier replacements for high-calorie fast food</h2>
+          <p class="section-copy">
+            CaloSwap mainly sells meal replacements that substitute for fried chicken meals, burgers, fries, and similar takeaway foods.
+            The aim is to offer the same satisfying taste profile with fewer calories, lower fat, and more balanced nutrition.
+          </p>
+
+          <div class="card" style="margin-top: 1.3rem;">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Food Item</th>
+                    <th>Replaces</th>
+                    <th>Calories</th>
+                    <th>Regular Price</th>
+                    <th>Member Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Lean Smash Burger Swap</td>
+                    <td>Classic beef burger</td>
+                    <td>390 kcal</td>
+                    <td class="regular-price">£5.60</td>
+                    <td class="member-price">£4.80</td>
+                  </tr>
+                  <tr>
+                    <td>Crispy Chick’n Swap Box</td>
+                    <td>Fried chicken box meal</td>
+                    <td>430 kcal</td>
+                    <td class="regular-price">£5.95</td>
+                    <td class="member-price">£5.10</td>
+                  </tr>
+                  <tr>
+                    <td>Protein Wrap Replacement</td>
+                    <td>Fried chicken wrap</td>
+                    <td>320 kcal</td>
+                    <td class="regular-price">£4.90</td>
+                    <td class="member-price">£4.20</td>
+                  </tr>
+                  <tr>
+                    <td>Oven-Baked Crunch Bites</td>
+                    <td>Chicken nuggets</td>
+                    <td>260 kcal</td>
+                    <td class="regular-price">£4.20</td>
+                    <td class="member-price">£3.60</td>
+                  </tr>
+                  <tr>
+                    <td>Air-Crisp Skinny Fries</td>
+                    <td>Deep-fried fries</td>
+                    <td>190 kcal</td>
+                    <td class="regular-price">£2.90</td>
+                    <td class="member-price">£2.40</td>
+                  </tr>
+                  <tr>
+                    <td>Mac Fit Bowl</td>
+                    <td>Loaded mac and cheese</td>
+                    <td>340 kcal</td>
+                    <td class="regular-price">£5.10</td>
+                    <td class="member-price">£4.40</td>
+                  </tr>
+                  <tr>
+                    <td>Chocolate Shake Light</td>
+                    <td>Full-fat milkshake</td>
+                    <td>170 kcal</td>
+                    <td class="regular-price">£3.40</td>
+                    <td class="member-price">£2.90</td>
+                  </tr>
+                  <tr>
+                    <td>Cheese Melt Toast Swap</td>
+                    <td>Greasy toastie</td>
+                    <td>280 kcal</td>
+                    <td class="regular-price">£4.00</td>
+                    <td class="member-price">£3.40</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card membership-card" id="membership">
+          <span class="tag">Student membership</span>
+          <h2 style="margin: 1rem 0 0.4rem; font-size: 1.95rem; line-height: 1.15;">Register as a member for £9.9 per month</h2>
+          <p style="margin: 0; color: var(--muted);">
+            Save money on every healthy swap and stay connected to our student wellbeing mission.
+          </p>
+
+          <div class="membership-price">
+            <strong>£9.9</strong>
+            <span style="color: var(--muted); font-weight: 600;">/ month</span>
+          </div>
+
+          <ul class="feature-list">
+            <li><span class="tick">✓</span><span>Discounted member pricing across the full menu</span></li>
+            <li><span class="tick">✓</span><span>Priority access to limited healthy combo launches</span></li>
+            <li><span class="tick">✓</span><span>Monthly nutrition and wellbeing email updates</span></li>
+            <li><span class="tick">✓</span><span>Support for a student-led startup aligned with SDG 3</span></li>
+          </ul>
+
+          <a href="#signup" class="btn btn-primary" style="width: 100%;">Join CaloSwap</a>
+          <p class="small" style="margin-top: 0.9rem;">Simple monthly plan designed for campus life.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="signup">
+      <div class="container signup-grid">
+        <div class="card" style="background: linear-gradient(180deg, #ffffff, var(--green-pale));">
+          <span class="tag">Stay connected</span>
+          <h2 class="section-title">Sign up for email updates</h2>
+          <p class="section-copy">
+            Join our mailing list for product launches, nutrition-focused offers, and updates about how CaloSwap supports good health and well-being on campus.
+          </p>
+
+          <div class="info-stack">
+            <div class="info-item">
+              <div class="info-icon">💚</div>
+              <div>
+                <strong>Health-first concept</strong>
+                <div style="color: var(--muted);">Lower-calorie versions of comfort food favourites.</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🎓</div>
+              <div>
+                <strong>Built for students</strong>
+                <div style="color: var(--muted);">Affordable food choices and membership savings.</div>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon">🌍</div>
+              <div>
+                <strong>SDG 3 mission</strong>
+                <div style="color: var(--muted);">Promoting better wellbeing through everyday food decisions.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <span class="tag">Email form</span>
+          <h2 style="margin: 1rem 0 0.5rem; font-size: 1.8rem; line-height: 1.18;">Register your interest</h2>
+          <p class="small">Fill in the form below to hear from CaloSwap.</p>
+
+          <form id="signupForm" novalidate>
+            <div class="form-row">
+              <input type="text" id="firstName" name="firstName" placeholder="First name" required />
+              <input type="text" id="lastName" name="lastName" placeholder="Last name" required />
+            </div>
+            <input type="email" id="email" name="email" placeholder="Email address" required />
+            <select id="interest" name="interest" required>
+              <option value="">Select your interest</option>
+              <option value="membership">Membership</option>
+              <option value="menu">Healthy menu updates</option>
+              <option value="partnership">Campus partnership</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div id="formMessage" class="message" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="color: #fff; margin-bottom: 0.9rem;">
+            <span class="brand-icon">🥗</span>
+            <span>CaloSwap</span>
+          </div>
+          <p style="margin: 0; max-width: 420px; color: rgba(255,255,255,0.76);">
+            A student startup focused on healthier food choices, transparent calorie information, and better wellbeing through smarter meal replacements.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-title">Explore</div>
+          <div class="footer-links">
+            <a href="#menu">Food Menu</a>
+            <a href="#stats">Obesity Data</a>
+            <a href="#membership">Membership</a>
+            <a href="#signup">Email Sign-up</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-title">Contact</div>
+          <div class="footer-links">
+            <span>Email: hello@caloswap.co.uk</span>
+            <span>Campus startup initiative</span>
+            <span>United Kingdom</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 CaloSwap. All rights reserved.</span>
+        <span>Designed for UN SDG 3: Good Health and Well-being.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const message = document.getElementById('formMessage');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const interest = document.getElementById('interest').value;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!firstName || !lastName || !email || !interest) {
+        message.className = 'message error';
+        message.textContent = 'Please complete all fields before submitting the form.';
+        return;
+      }
+
+      if (!emailPattern.test(email)) {
+        message.className = 'message error';
+        message.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      message.className = 'message success';
+      message.textContent = `Thank you, ${firstName}! You have successfully signed up for CaloSwap updates.`;
+      form.reset();
+    });
+  </script>
+</body>
+</html>
